@@ -1,26 +1,40 @@
 #!/usr/bin/env xonsh
 
 from openai import OpenAI
-import colorama
+from colorama import Fore, Style
 
-api = "API_KEY_GAPGPT"
+api = "API"
 
 client = OpenAI(
     api_key = api,
     base_url = "https://api.gapgpt.app/v1"
 )
 
+clear
+
 while True:
-    i = input("You ➤ ")
+    i = input(f"{Fore.CYAN}You {Fore.YELLOW}➤ {Style.RESET_ALL}")
 
     if i == "exit":
-        print("Bye")
+        print(f"{Fore.RED}Bye{Style.RESET_ALL}")
         break
 
-    response = client.responses.create(
+    if i == "clear":
+        clear
+        continue
+
+    pkill espeak-ng
+
+    response = client.chat.completions.create(
         model = "gapgpt-qwen-3.5",
-        input = i
+        messages = [
+            {"role": "system", "content": "فقط به انگلیسی جواب بده و اصلا از حروف الفبای فارسی استفاده نکن. دوستانه حرف بزن و سعی کن زیاد توضیح ندی و کم حرف بزنی. اسمت شایان هست و تو یک هوش مصنوعی کوچک هستی که قابلیت ویس هم داره."},
+            {"role": "user", "content": i}
+        ]
     )
 
-    espeak-ng@(response.output_text)
-    print(f"AI ➤ {response.output_text}")
+    at = response.choices[0].message.content
+
+    print(f"{Fore.MAGENTA}AI {Fore.YELLOW}➤ {Fore.CYAN}{at}{Style.RESET_ALL}")
+
+    espeak-ng @(at) &
