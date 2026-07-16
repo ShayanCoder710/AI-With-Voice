@@ -3,10 +3,6 @@
 from openai import OpenAI
 import colorama
 
-sudo apt install espeak-ng
-pip install openai colorama --break-system-packages
-clear
-
 api = "API_KEY_GAPGPT"
 
 client = OpenAI(
