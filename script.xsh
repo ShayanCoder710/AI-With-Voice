@@ -3,7 +3,7 @@
 from openai import OpenAI
 from colorama import Fore, Style
 
-api = "sk-Iaft3Y9IIX15WJQWtsn25IXBbfUkS1xqn33CsngvV9kO3k00"
+api = "API"
 
 client = OpenAI(
     api_key = api,
